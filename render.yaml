@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: vialtogroup-postulaciones
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --threads 4 --timeout 60
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: SMTP_HOST
+        value: smtpout.secureserver.net
+      - key: SMTP_PORT
+        value: "465"
+      - key: SMTP_USERNAME
+        value: personal@vialtogroup.com
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: RECIPIENT_EMAIL
+        value: personal@vialtogroup.com
